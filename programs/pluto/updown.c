@@ -98,8 +98,41 @@ static void jam_clean_xauth_username(struct jambuf *buf,
 struct updown_exec {
 	char buffer[2048];
 	const char *env[100];
-	const char *arg[4];
+	char **argv;
 };
+
+static char **argv_from_shunks(struct shunks *args)
+{
+	/* get space needed for strings */
+	size_t chars = 0;
+	ITEMS_FOR_EACH(s, args) {
+		chars += s->len+1/*NUL*/;
+	}
+	/* argv[] array + NULL; NULL terminated strings */
+	char **argv = overalloc_things(char *, args->len+1, chars);
+	char **argv_roof = argv + args->len + 1;
+	char *p = (char*) argv_roof;
+	/* copy over */
+	unsigned i = 0;
+	ITEMS_FOR_EACH(s, args) {
+		argv[i++] = p;
+		memcpy(p, s->ptr, s->len);
+		p += s->len + 1/*NUL*/;
+	}
+	pmemory(argv);
+	return argv;
+}
+
+static char **argv_from_string(const char *command)
+{
+	struct shunks *args = ttoshunks(shunk1(command), " ", EAT_EMPTY_SHUNKS);
+	if (args == NULL) {
+		return NULL;
+	}
+	char **argv = argv_from_shunks(args);
+	pfree(args);
+	return argv;
+}
 
 static bool build_updown_exec(struct updown_exec *exec,
 			      const char *verb, const char *verb_suffix,
@@ -112,16 +145,18 @@ static bool build_updown_exec(struct updown_exec *exec,
 	/*
 	 * Build argv[]
 	 */
-	const char **argv = exec->arg;
 	if (c->local->config->child.updown.updown_config_exec) {
-		(*argv++) = c->local->config->child.updown.command;
+		exec->argv = argv_from_string(c->local->config->child.updown.command);
 	} else {
-		(*argv++) = "/bin/sh";
-		(*argv++) = "-c";
-		(*argv++) = c->local->config->child.updown.command;
+		struct shunks *args = alloc_items(struct shunks, 3);
+		unsigned i = 0;
+		args->item[i++] = shunk1("/bin/sh");
+		args->item[i++] = shunk1("-c");
+		args->item[i++] = shunk1(c->local->config->child.updown.command);
+		vassert(i == args->len);
+		exec->argv = argv_from_shunks(args);
+		pfree(args);
 	}
-	(*argv++) = NULL;
-	vassert(argv <= exec->arg + elemsof(exec->arg));
 
 	/*
 	 * Build envp[]
@@ -444,7 +479,9 @@ static bool do_updown_verb(const char *verb,
 		return false;
 	}
 
-	return server_runve(verb, exec.arg, exec.env, verbose);
+	bool ok = server_runve(verb, (const char**) exec.argv, exec.env, verbose);
+	pfree(exec.argv);
+	return ok;
 }
 
 bool updown_connection_spd(enum updown updown_verb,
@@ -599,12 +636,13 @@ bool updown_async_child(bool prepare, bool route, bool up,
 		return false;
 	}
 
-	server_fork_exec(exec.arg[0], (char**)exec.arg, (char**)exec.env,
+	server_fork_exec(exec.argv[0], exec.argv, (char**)exec.env,
 			 /*input*/null_shunk,
 			 ALL_STREAMS,
 			 updown_async_callback,
 			 /*callback_context*/NULL,
 			 child->sa.logger);
+	pfree(exec.argv);
 	return true;
 }
 
