@@ -13,12 +13,12 @@ initdone
 east #
  # There should be no established IKE SA and no established IPsec SA
 east #
- ipsec whack --trafficstatus
+ ipsec trafficstatus
 east #
  # only on east, pluto should be attempting to connect to west because it has auto=start
 east #
  ipsec showstates
-#3: "west-east-auto":500 IKE_SA_INIT_I (sent IKE_SA_INIT request); RETRANSMIT in XXs; idle;
+#3: "west-east-auto":500 sent IKE_SA_INIT request; RETRANSMIT in XXs; idle;
 #3: pending Child SA for "west-east-auto"
 east #
  # confirm the revive conn code triggered on east
