@@ -23,8 +23,5 @@ osxApp/build
 Makefile.inc.local
 .ycm_extra_conf.py
 cscope.out
-testing/dnssec/signed/*.signed
-testing/dnssec/keys/*.key
-testing/dnssec/keys/*.private
-testing/dnssec/dsset/dsset*
+testing/dnssec/*/
 nohup.out

@@ -659,10 +659,7 @@ kvm-clean-keys:
 	: careful output mixed with repo files
 	rm -rf $(KVM_TESTINGDIR)/x509/*/
 	rm -f $(KVM_KEYS)
-	rm -f $(KVM_TESTINGDIR)/dnssec/signed/*.signed
-	rm -f $(KVM_TESTINGDIR)/dnssec/keys/*.key
-	rm -f $(KVM_TESTINGDIR)/dnssec/keys/*.private
-	rm -f $(KVM_TESTINGDIR)/dnssec/dsset/dsset-*
+	rm -rf $(KVM_TESTINGDIR)/baseconfigs/all/etc/bind/*/
 
 # For moment don't force keys to be re-built.
 .PHONY: kvm-keys-ok
