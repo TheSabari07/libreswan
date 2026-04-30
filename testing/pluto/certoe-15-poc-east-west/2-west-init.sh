@@ -1,7 +1,7 @@
-/testing/guestbin/swan-prep --x509
+/testing/guestbin/swan-prep --nokeys
+/testing/x509/import.sh real/mainca/west.p12
 ../../guestbin/ip-route.sh del default
 ../../guestbin/ip-route.sh add default via 192.9.4.1
-ipsec certutil -D -n east
 cp west-ikev2-oe.conf /etc/ipsec.d/ikev2-oe.conf
 cp policies/* /etc/ipsec.d/policies/
 # specific /32 to test replacement of /32 oppo-instance with oppo-group

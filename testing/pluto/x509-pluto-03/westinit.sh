@@ -1,6 +1,5 @@
-/testing/guestbin/swan-prep --x509
-# remove east's cert so it must come via IKE
-ipsec certutil -D -n east
+/testing/guestbin/swan-prep --nokeys
+/testing/x509/import.sh real/mainca/west.p12
 # confirm that the network is alive
 ../../guestbin/wait-until-alive -I 192.0.1.254 192.0.2.254
 # ensure that clear text does not get through

@@ -1,5 +1,5 @@
-/testing/guestbin/swan-prep --x509 --46
-ipsec certutil -D -n east
+/testing/guestbin/swan-prep --nokeys --46
+/testing/x509/import.sh real/mainca/west.p12
 ipsec start
 ../../guestbin/wait-until-pluto-started
 ipsec add san

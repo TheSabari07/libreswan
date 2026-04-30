@@ -1,7 +1,7 @@
-/testing/guestbin/swan-prep  --x509
+/testing/guestbin/swan-prep --nokeys
+/testing/x509/import.sh real/mainca/east.p12
 ../../guestbin/ip-route.sh del default
 ../../guestbin/ip-route.sh add default via 192.9.2.1
-ipsec certutil -D -n west
 cp east-ikev2-oe.conf /etc/ipsec.d/ikev2-oe.conf
 cp policies/* /etc/ipsec.d/policies/
 echo "192.1.2.45/32"  >> /etc/ipsec.d/policies/private
