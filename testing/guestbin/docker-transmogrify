@@ -106,8 +106,6 @@ if os.path.isfile(resolv):
 # packets) as well as on nic
 if not os.path.isdir("/etc/bind"):
     os.mkdir("/etc/bind")
-output += "\n" + \
-    subprocess.getoutput("cp -a /testing/baseconfigs/all/etc/bind/* /etc/bind/")
 
 if hostname == "nic":
     output += "\n" + \

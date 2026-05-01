@@ -115,21 +115,6 @@ restorecon -R /etc/security/limits.conf /etc/sysconfig/pluto
 
 
 :
-: bind
-:
-
-# and bind config - can be run on all hosts (to prevent network DNS
-# packets) as well as on nic
-#
-# XXX: are these config files are tied to the test run and hence
-# should be copied over during the install or swan-pref step?
-
-mkdir -p /etc/bind
-cp -av /bench/testing/baseconfigs/all/etc/bind/* /etc/bind/
-restorecon -R /etc/bind
-
-
-:
 : ssh
 :
 
