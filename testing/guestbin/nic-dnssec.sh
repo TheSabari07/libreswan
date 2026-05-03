@@ -21,11 +21,6 @@ export LC_CTYPE
 
 echo ==== cut ====
 
-# Install NSD and UNBOUND config files into a tmpfs mounted
-# directories.  This way a reboot clears everything out.
-#
-# NSD only requires a few tweaks; UNBOUND replaces everything :-/
-
 tmpfs_mount() {
     local d=$1
     echo tmpfs mounting $d:
@@ -34,9 +29,14 @@ tmpfs_mount() {
     mount -t tmpfs tmpfs $d
 }
 
-for d in etc/nsd/conf.d etc/nsd/server.d etc/unbound ; do
-    tmpfs_mount /$d
-    cp -av /testing/baseconfigs/all/$d/* /$d
+# Install NSD a tmpfs mounted directories.  This way a reboot clears
+# everything out.
+#
+# NSD only requires a few files
+
+for d in conf.d server.d ; do
+    tmpfs_mount /etc/nsd/$d
+    cp /testing/dnssec/nsd.$d.libreswan.conf /etc/nsd/$d/
     restorecon -R /$d
 done
 
@@ -44,6 +44,14 @@ for d in etc/nsd/zones ; do
     tmpfs_mount /$d
     cp -va /testing/dnssec/zones/* /$d/
     chown root /$d/*
+    restorecon -R /$d
+done
+
+# UNBOUND needs everything copied
+
+for d in etc/unbound ; do
+    tmpfs_mount /$d
+    cp -av /testing/baseconfigs/all/$d/* /$d
     restorecon -R /$d
 done
 
