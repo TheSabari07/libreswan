@@ -47,6 +47,9 @@ for d in etc/nsd/zones ; do
     restorecon -R /$d
 done
 
+cp /testing/dnssec/resolv.conf.nic /etc/resolv.conf
+restorecon -R /etc/resolv.conf
+
 # UNBOUND needs everything copied
 
 for d in etc/unbound ; do
