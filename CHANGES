@@ -25,11 +25,12 @@ v5.4 (unreleased)
   - fix Debian based OS when no EDDSA [Andrew, shahrinf, #2659]
   - remove HAVE_BROKEN_POPEN=true needed by Angstrom linux [Andrew, #2588]
     Angstrom's last release was 2017 or 8 years ago
+  - on Linux, except OpenWRT and Alpine, default to INITSYSTEM=systemd [Andrew]
 * testing:
   - Alpine test domain upgraded to 3.22.2 [Andrew]
-  - Debian test domain upgraded to 12.12 [Andrew]
+  - Debian test domain upgraded to 12.13 [Andrew]
   - Fedora test domain upgraded to f43 [Andrew]
-  - FreeBSD test domain upgraded to 14.3 [Andrew, Ueno #2341]
+  - FreeBSD test domain upgraded to 14.4 [Andrew, Ueno #2341]
   - OpenBSD test domain upgraded to 7.8 [Andrew]
 
 v5.3 (July 3, 2025)
