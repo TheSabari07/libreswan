@@ -40,38 +40,45 @@ endif
 ifneq ($(filter debian ubuntu,$(LINUX_VARIANT)),)
   DEFAULT_DNSSEC_ROOTKEY_FILE ?= /usr/share/dns/root.key
   CKSUM ?= shasum
+
   # https://wiki.debian.org/LTS
   ifeq ($(LINUX_VERSION_CODENAME),bullseye) # Debian 11; Jun 2026
     USE_XFRM_HEADER_COPY ?= true
     USE_ML_KEM_768 ?= false
     USE_EDDSA ?= false
   endif
+
   ifeq ($(LINUX_VERSION_CODENAME),bookworm) # Debian 12; Jun 2028
     USE_XFRM_HEADER_COPY ?= true
     # NSS 3.87; EDDSA>=3.99
     USE_ML_KEM_768 ?= false
     USE_EDDSA ?= false
   endif
+
   ifeq ($(LINUX_VERSION_CODENAME),trixie) # Debian 13; Jun 2030
     USE_XFRM_HEADER_COPY ?= true
   endif
+
   # https://ubuntu.com/about/release-cycle
   ifeq ($(LINUX_VERSION_CODENAME),focal) # Ubuntu 20.04.6 LTS; May 2025; Pro Apr 2030
     USE_XFRM_HEADER_COPY ?= true
     USE_ML_KEM_768 ?= false
     USE_EDDSA ?= false
   endif
+
   ifeq ($(LINUX_VERSION_CODENAME),jammy) # Ubuntu 22.04.5 LTS; Jun 2027; Pro Apr 2032
     USE_XFRM_HEADER_COPY ?= true
     # NSS 3.98; EDDSA>=3.99
     USE_ML_KEM_768 ?= false
     USE_EDDSA ?= false
   endif
+
   ifeq ($(LINUX_VERSION_CODENAME),noble) # Ubuntu 24.04.3 LTS; May 2029; Pro Apr 2034
     USE_XFRM_HEADER_COPY ?= true
     USE_ML_KEM_768 ?= false
     USE_EDDSA ?= false
   endif
+
 endif
 
 #
@@ -97,6 +104,7 @@ ifneq ($(filter suse,$(LINUX_VARIANT)),)
   DEFAULT_DNSSEC_ROOTKEY_FILE ?= /var/lib/unbound/root.key
 endif
 
+
 #
 # Arch Linux derived
 #
@@ -106,38 +114,33 @@ ifneq ($(filter arch,$(LINUX_VARIANT)),)
   DEFAULT_DNSSEC_ROOTKEY_FILE ?= /etc/trusted-key.key
 endif
 
+
 #
 # Alpine
 #
 
 ifneq ($(filter alpine,$(LINUX_VARIANT)),)
   DEFAULT_DNSSEC_ROOTKEY_FILE ?= /usr/share/dnssec-root/trusted-key.key
+  INITSYSTEM=openrc
 endif
 
+
 #
-# INITSYSTEM
+# OpenWRT
 #
 
-ifndef INITSYSTEM
-  ifneq ($(and $(wildcard /lib/systemd/systemd),$(wildcard /run/systemd)),)
-    INITSYSTEM=systemd
-  else ifneq ($(and $(wildcard /sbin/start),$(wildcard /etc/redhat-release)),)
-    # override for rhel/centos to use sysvinit
-    INITSYSTEM=sysvinit
-  else ifneq ($(wildcard /sbin/start),)
-    INITSYSTEM=upstart
-  else ifneq ($(wildcard /sbin/rc-service /usr/sbin/rc-service),)
-    # either
-    INITSYSTEM=openrc
-  else
-    INITSYSTEM=sysvinit
-  endif
+ifneq ($(filter openwrt,$(LINUX_VARIANT)),)
+  DEFAULT_DNSSEC_ROOTKEY_FILE ?= /var/lib/unbound/root.key
+  INITSYSTEM=sysvinit
 endif
 
 
 #
 # basic stuff (unless overridden by above)
 #
+
+# Alpine and OpenWRT continue to resist the tide.
+INITSYSTEM ?= systemd
 
 USE_XFRM ?= true
 ifneq ($(USE_IPTABLES), true)
