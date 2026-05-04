@@ -1,0 +1,8 @@
+On road, resolve right=right.libreswan.org from /etc/hosts during revival
+
+- connection establishes using east=right.libreswan.org
+- host entry redirected to new west=right.libreswan.org
+- connection fails; how?
+- revival attempt 1 fails (using existing IP)
+- connection switches to DDNS
+- DDNS succeeds
