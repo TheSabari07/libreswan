@@ -1,0 +1,34 @@
+../../guestbin/nic-dnssec.sh start
+starting dns
+digging for road.testing.libreswan.org IPSECKEY
+Everything went well, including things like NXDOMAIN.
+Found 2 records
+nic #
+ echo right.testing.libreswan.org. IN A 192.1.2.23 >> /etc/nsd/zones/testing.libreswan.org
+nic #
+ tail -1 /etc/nsd/zones/testing.libreswan.org
+right.testing.libreswan.org. IN A 192.1.2.23
+nic #
+ /testing/dnssec/sign-zone.sh /etc/nsd/zones/testing.libreswan.org
+/etc/nsd/zones/testing.libreswan.org.signed
+nic #
+ /testing/guestbin/nsd.sh reload
+nic #
+ /testing/guestbin/unbound.sh reload
+nic #
+ sed -i -e '/right.testing.libreswan.org/ s/23/45/' /etc/nsd/zones/testing.libreswan.org # east->west
+nic #
+ tail -1 /etc/nsd/zones/testing.libreswan.org
+right.testing.libreswan.org. IN A 192.1.2.45
+nic #
+ /testing/dnssec/sign-zone.sh /etc/nsd/zones/testing.libreswan.org
+/etc/nsd/zones/testing.libreswan.org.signed
+nic #
+ /testing/guestbin/nsd.sh reload
+nic #
+ /testing/guestbin/unbound.sh reload
+nic #
+ ipsec _kernel state
+nic #
+ ipsec _kernel policy
+nic #

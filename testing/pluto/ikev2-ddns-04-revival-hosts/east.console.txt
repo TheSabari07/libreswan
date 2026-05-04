@@ -1,0 +1,19 @@
+/testing/guestbin/prep.sh
+ipsec.conf -> /etc/ipsec.conf
+ipsec.secrets -> /etc/ipsec.secrets
+east #
+ ipsec start
+Redirecting to: [initsystem]
+east #
+ ../../guestbin/wait-until-pluto-started
+east #
+ ipsec add road-east
+"road-east": added oriented IKEv2 connection
+east #
+ ipsec stop
+Redirecting to: [initsystem]
+east #
+ ipsec _kernel state
+east #
+ ipsec _kernel policy
+east #
