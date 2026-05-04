@@ -47,19 +47,6 @@
 
 #include <nss.h>
 
-#if 0 && (( NSS_VMAJOR > 3 ) ||				\
-	  ( NSS_VMAJOR == 3 &&	NSS_VMINOR >= 116 ))
-#define LSW_CKM_ML_KEM_KEY_PAIR_GEN CKM_ML_KEM_KEY_PAIR_GEN
-#define LSW_CKM_ML_KEM CKM_ML_KEM
-#define LSW_CKP_ML_KEM_768 CKP_ML_KEM_768
-#define LSW_CK_ML_KEM_PARAMETER_SET_TYPE CK_ML_KEM_PARAMETER_SET_TYPE
-#else
-#define LSW_CKM_ML_KEM_KEY_PAIR_GEN CKM_NSS_ML_KEM_KEY_PAIR_GEN
-#define LSW_CKM_ML_KEM CKM_NSS_ML_KEM
-#define LSW_CKP_ML_KEM_768 CKP_NSS_ML_KEM_768
-#define LSW_CK_ML_KEM_PARAMETER_SET_TYPE CK_NSS_KEM_PARAMETER_SET_TYPE
-#endif
-
 #include <prerror.h>		/* for PRErrorCode, for PR_GetError() */
 #include <pk11pub.h>
 

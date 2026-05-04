@@ -33,7 +33,7 @@ static bool nss_ml_kem_calc_local_secret_1(const struct kem_desc *kem,
 					   CK_MECHANISM_TYPE ml_kem_mechanism,
 					   PK11SlotInfo *slot)
 {
-	LSW_CK_ML_KEM_PARAMETER_SET_TYPE generate_key_pair_parameter =
+	CK_ML_KEM_PARAMETER_SET_TYPE generate_key_pair_parameter =
 		kem->nss.ml_kem.generate_key_pair_parameter;
 	(*private_key) = PK11_GenerateKeyPair(slot, ml_kem_mechanism,
 					      &generate_key_pair_parameter,
@@ -57,7 +57,7 @@ static bool nss_ml_kem_calc_local_secret(const struct kem_desc *kem,
 					 SECKEYPublicKey **public_key,
 					 struct logger *logger)
 {
-	CK_MECHANISM_TYPE ml_kem_mechanism = LSW_CKM_ML_KEM_KEY_PAIR_GEN;
+	CK_MECHANISM_TYPE ml_kem_mechanism = CKM_ML_KEM_KEY_PAIR_GEN;
 	PK11SlotInfo *slot = PK11_GetBestSlot(ml_kem_mechanism, lsw_nss_get_password_context(logger));
 	if (slot == NULL) {
 		llog_nss_error(ERROR_STREAM, logger, "PK11_GetBestSlot(%lx) failed",
@@ -114,7 +114,7 @@ static diag_t nss_ml_kem_encapsulate_1(const struct kem_desc *kem,
 
 	CK_OBJECT_HANDLE handle;
 	{
-		PK11SlotInfo *slot = PK11_GetBestSlot(LSW_CKM_ML_KEM, password_context);
+		PK11SlotInfo *slot = PK11_GetBestSlot(CKM_ML_KEM, password_context);
 		if (slot == NULL) {
 			return diag_nss_error("getting %s() slot", __func__);
 		}

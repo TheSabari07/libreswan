@@ -715,7 +715,7 @@ struct kem_desc {
 		} ecp;
 #ifdef USE_ML_KEM
 		struct {
-			LSW_CK_ML_KEM_PARAMETER_SET_TYPE generate_key_pair_parameter;
+			CK_ML_KEM_PARAMETER_SET_TYPE generate_key_pair_parameter;
 			KyberParams encapsulate_parameter;
 		} ml_kem;
 #endif
