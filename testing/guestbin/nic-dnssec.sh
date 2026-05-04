@@ -21,6 +21,8 @@ export LC_CTYPE
 
 echo ==== cut ====
 
+systemctl stop NetworkManager
+
 tmpfs_mount() {
     local d=$1
     echo tmpfs mounting $d:
