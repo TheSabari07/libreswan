@@ -3,20 +3,48 @@ See also https://libreswan.org/
 v5.4 (unreleased)
 * IKEv2:
   - update multiple key exchanges using IKE_INTERMEDIATE to RFC 9370 [Daiki Ueno, Andrew]
-  - support ML_KEM_768 in IKE_SA_INIT and IKE_INTERMEDIATE exchanges [Andrew]
-  - treat broken IKE_AUTH Child SA response as INVALID_SYNTAX [mamtagambhir, Andrew, #2348]
+  - support ML_KEM_768 in IKE_SA_INIT and IKE_INTERMEDIATE exchanges [Andrew, Daiki]
+  - treat broken IKE_AUTH Child SA response as INVALID_SYNTAX [mamtagambhir #2348]
+  - include DIGSIG algorithm in IKE_AUTH request log [Amrinder Singh #2490 #2627]
+  - clarify missing Child SA log during delete [Osema Fadhel #1585 #2695]
+  - include proposed traffic selectors in initiator logs [Osema Fadhel #2660 #2534]
+  - fix triple log of "no proposal chosen" [Shubham Kumar #2740 #1604]
+  - clearly log whenmessage is re-assembled [Sabari07 #2716 #2450]
 * X.509:
   - fix loop when crlcheckinterval=0+`ipsec fetchcrls` [Wofferl #2383]
-* config:
+* Kernel:
+  - fix metrics on VTI interfaces [Cleberson Batista, Andrew #2601]
+  - include selectors in Linux policy error logs [Amrinder Singh #1544 #2651]
+  - include XFRM message name in Linux errors [Anish #2701 #2653]
+  - drop redundant "SPI" from kernel logs [Sabari07 #2694 #2654]
+  - be sensitive when logging kernel SPIs [shahrinf #2652 #2670]
+* config (ipsec.conf, ipsec pluto --...):
   - fix plutodebug=all,add-prefix [Andrew #2338]
   - fix per-connection debug= option (experimental in v5.0) [Andrew]
   - support dns-resolver=systemd [Amirreza #2379 #2356 #2376, Andrew]
   - better errors when invalid auto=, phase2=, and sendca= [Amrinder Singh #2625 #2492]
-  - fix readwriteconf dumps [Mohana Katari, Andrew, #2630]
-  - fix --stderrlog overriding ipsec.conf [Vinayak Sandur, Andrew, 2599]
-  - fix ignore-peer-dns= [Amrinder Singh, Andrew, #2636]
-  - (experimental) support updown-config={async,exec} [Andrew]
-  - (experimental) support subnet leases; syntax is leftaddresspool=2025::/56/64 [Andrew]
+  - fix config dump missing values [Mohana Katari #2630]
+  - fix --stderrlog overriding ipsec.conf [Vinayak Sandur #2599]
+  - fix --seedbits and --seeddev overrides [[ANISH-SR #2718 #2707]
+  - enable leak-detective by default [ANISH-SR #2743 #2725]
+  - support `ipsec addconn --configsetup=exampledir` [Shubham Kumar #2717 #2742]
+  - add warnings when IKEv2 config contains xauth params [Osema Fadhel #2738 #2018]
+  - fix ignore-peer-dns= [Amrinder Singh #2539 #2636]
+  - add loglimit=no to disable rate limiting [Shubham Kumar #2741 #2713]
+  - prefer negotationshunt=drop over hold [Amrinder Singh #2649 #2191]
+  - update proposal parser [Vinayak Sandur #2744 #2737]
+    + warn when ike=ENCR-INTEG-PRF-DH
+    + allow unambigious ike=ENCR-PRF-INTEG-DH
+  - support updown-config={async,exec} (experimental) [Andrew]
+  - support leftaddresspool=2025::/56/64 for leasing subnets (experimental) [Andrew]
+  - fix display of ike-socket-errqueue= [Vinayak Sandur #2650 #2548]
+* logging:
+  - rate limit logging of bogus UDP packets [Sabari07 #2727 #2727]
+  - use IP%interface syntax when logging interface addresses [Nour Mustapha #2554 #2642]
+  - be consistent with pluto's startup logs ([disabled]) [Amrinder Singh #2747 #2745]
+  - fix count of dropped packets [André Luiz Rodrigues Castro da Nóbrega #2696 #2546]
+  - remove internal names from `ipsec status` state output [Fatma #2645 #1670]
+  - remove redundant "leak-detective enabled" logs [Amrinder Singh #2739 #2735]
 * building:
   - on Linux, prefer system's xfrm.h [Andrew, Antony, Vukasink, #2431 #2396 #2501]
     Note: old Linux distros may need USE_XFRM_HEADER_COPY=true
@@ -26,12 +54,23 @@ v5.4 (unreleased)
   - remove HAVE_BROKEN_POPEN=true needed by Angstrom linux [Andrew, #2588]
     Angstrom's last release was 2017 or 8 years ago
   - on Linux, except OpenWRT and Alpine, default to INITSYSTEM=systemd [Andrew]
+  - GCC 16 fixes [Daiki Ueno #2598]
+  - fix `make git-rpm` [Ondrej Moris #2512]
 * testing:
+  - increase expiration on PKI keys to 1 month [islem52 #2726 #2720]
   - Alpine test domain upgraded to 3.22.2 [Andrew]
   - Debian test domain upgraded to 12.13 [Andrew]
   - Fedora test domain upgraded to f43 [Andrew]
   - FreeBSD test domain upgraded to 14.4 [Andrew, Ueno #2341]
   - OpenBSD test domain upgraded to 7.8 [Andrew]
+* documentation:
+  - fix typos in example config files [Mohana Katari #2632]
+  - document exampledir=, loglimit= [Shubham Kumar]
+  - update negotiationshunt= [Amrinder Singh]
+  - cleanup OE example config files [Navid Fayezi #2648]
+  - document reject-simultaneous-ike-auth [Ondrej Moris]
+  - clarify sendifasked= [Daiki Ueno]
+  - document authby=eddsa [Rishabh]
 
 v5.3 (July 3, 2025)
 * PKIX (Public Key Infrastructure X.509)
