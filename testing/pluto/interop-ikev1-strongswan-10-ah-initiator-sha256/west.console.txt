@@ -18,6 +18,12 @@ down
 west #
  ../../guestbin/strongswan-start.sh
 west #
+ swanctl --load-conns
+no files found matching '/tmp/swanctl/conf.d/ike_sa_default.conf'
+no files found matching '/tmp/swanctl/conf.d/child_sa_default.conf'
+loaded connection 'westnet-eastnet-ikev1'
+successfully loaded 1 connections, 0 unloaded
+west #
  echo "initdone"
 initdone
 west #
@@ -40,7 +46,7 @@ sending packet: from 192.1.2.45[500] to 192.1.2.23[500] (XXX bytes)
 received packet: from 192.1.2.23[500] to 192.1.2.45[500] (XXX bytes)
 parsed ID_PROT response 0 [ ID HASH ]
 IKE_SA westnet-eastnet-ikev1[1] established between 192.1.2.45[west]...192.1.2.23[east]
-scheduling reauthentication in XXXs
+scheduling rekeying in XXXs
 maximum IKE_SA lifetime XXXs
 generating QUICK_MODE request 0123456789 [ HASH SA No KE ID ID ]
 sending packet: from 192.1.2.45[500] to 192.1.2.23[500] (XXX bytes)
