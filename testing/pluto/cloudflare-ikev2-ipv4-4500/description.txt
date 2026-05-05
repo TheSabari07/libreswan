@@ -1,0 +1,8 @@
+Cloudflare WAN-style IKEv2 compatibility over IPv4:4500
+
+West initiates IKEv2 connection on IPv4:4500 (leftikeport=4500).
+
+East is configured to accept connections on all addresses and ports.
+
+West is configured to initiate to east's IPv4:4500 port only,
+matching Cloudflare Magic WAN IPsec peer requirements.
