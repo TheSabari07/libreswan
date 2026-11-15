@@ -180,25 +180,25 @@ output: | I will NOT send an initial contact payload
 output: | init checking NAT-T: global enabled; conn enabled; vid RFC 3947 (NAT-Traversal)
 output: | natd_hash: hasher=0x555617ddbe20(32)
 output: | natd_hash: icookie=
-output: |   97 06 df 1f  96 b5 45 f1                             ......E.
+output: |   97 06 df 1f  96 b5 45 f1
 output: | natd_hash: rcookie=
-output: |   54 29 74 f6  19 5e e4 8e                             T)t..^..
+output: |   54 29 74 f6  19 5e e4 8e
 output: | natd_hash: ip=
-output: |   c0 01 02 2d                                          ...-
+output: |   c0 01 02 2d
 output: | natd_hash: port=
-output: |   01 f4                                                ..
+output: |   01 f4
 output: | natd_hash: hash=
 output: |   bc 69 f0 25  a2 7c ac cf  bc 08 7e 83  c0 e9 1d 2f   .i.%.|....~..../
 output: |   8c ff 9b b1  99 fc 30 6c  1c d8 79 18  2f 47 cc dc   ......0l..y./G..
 output: | natd_hash: hasher=0x555617ddbe20(32)
 output: | natd_hash: icookie=
-output: |   97 06 df 1f  96 b5 45 f1                             ......E.
+output: |   97 06 df 1f  96 b5 45 f1
 output: | natd_hash: rcookie=
-output: |   54 29 74 f6  19 5e e4 8e                             T)t..^..
+output: |   54 29 74 f6  19 5e e4 8e
 output: | natd_hash: ip=
-output: |   c0 01 02 17                                          ....
+output: |   c0 01 02 17
 output: | natd_hash: port=
-output: |   01 f4                                                ..
+output: |   01 f4
 output: | natd_hash: hash=
 output: |   cf fa e9 fc  3c 1d 9d e5  51 8d 8e b7  52 41 05 7c   ....<...Q...RA.|
 output: |   db 6c 97 6f  f6 09 70 6f  f9 9e 6d 74  8f ad 96 a7   .l.o..po..mt....
@@ -309,7 +309,7 @@ output: |    ID type: ID_FQDN (0x2)
 output: |    DOI specific A: 0 (00)
 output: |    DOI specific B: 0 (00 00)
 output: |      obj: 
-output: |   65 61 73 74                                          east
+output: |   65 61 73 74
 output: | got payload 0x100 (ISAKMP_NEXT_HASH) needed: 0x100 opt: 0x2080
 output: | ***parse ISAKMP Hash Payload:
 output: |    next payload type: ISAKMP_NEXT_NONE (0x0)
@@ -696,7 +696,7 @@ output: |    ID type: ID_IPV4_ADDR_SUBNET (0x4)
 output: |    Protocol ID: ALL (0x0)
 output: |    port: 0 (00 00)
 output: |      obj: 
-output: |   c0 00 01 00  ff ff ff 00                             ........
+output: |   c0 00 01 00  ff ff ff 00
 output: | got payload 0x20 (ISAKMP_NEXT_ID) needed: 0x0 opt: 0x200030
 output: | ***parse ISAKMP Identification Payload (IPsec DOI):
 output: |    next payload type: ISAKMP_NEXT_NONE (0x0)
@@ -705,7 +705,7 @@ output: |    ID type: ID_IPV4_ADDR_SUBNET (0x4)
 output: |    Protocol ID: ALL (0x0)
 output: |    port: 0 (00 00)
 output: |      obj: 
-output: |   c0 00 02 00  ff ff ff 00                             ........
+output: |   c0 00 02 00  ff ff ff 00
 output: | removing 12 bytes of padding
 output: |     result: newref clone-key@0x7f1c92760f80 (32-bytes, SHA256_HMAC)(init_symkey() +101 lib/libswan/ike_alg_prf_mac_nss_ops.c)
 output: | HASH(2): delref clone-key@0x7f1c92760f80
@@ -723,7 +723,7 @@ output: |    protocol ID: PROTO_IPSEC_ESP (0x3)
 output: |    SPI size: 4 (04)
 output: |    number of transforms: 1 (01)
 output: | parsing 4 raw bytes of ISAKMP Proposal Payload into SPI
-output: |   4c 14 57 f8                                          L.W.
+output: |   4c 14 57 f8
 output: | *****parse ISAKMP Transform Payload (ESP):
 output: |    next payload type: ISAKMP_NEXT_NONE (0x0)
 output: |    length: 32 (00 20)
@@ -800,14 +800,14 @@ output: |    flags: ISAKMP_FLAG_v1_ENCRYPTION (0x1)
 output: |    Message ID: 2496690960 (94 d0 7b 10)
 output: | next payload chain: saving message location 'ISAKMP Message'.'next payload type'
 output: | parsing 4 raw bytes of ISAKMP Identification Payload (IPsec DOI) into ID address
-output: |   c0 00 01 00                                          ....
+output: |   c0 00 01 00
 output: | parsing 4 raw bytes of ISAKMP Identification Payload (IPsec DOI) into ID mask
-output: |   ff ff ff 00                                          ....
+output: |   ff ff ff 00
 output: | our client is subnet 192.0.1.0/24
 output: | parsing 4 raw bytes of ISAKMP Identification Payload (IPsec DOI) into ID address
-output: |   c0 00 02 00                                          ....
+output: |   c0 00 02 00
 output: | parsing 4 raw bytes of ISAKMP Identification Payload (IPsec DOI) into ID mask
-output: |   ff ff ff 00                                          ....
+output: |   ff ff ff 00
 output: | peer client is subnet 192.0.2.0/24
 output: | ***emit ISAKMP Hash Payload:
 output: |    next payload type: ISAKMP_NEXT_NONE (0x0)
